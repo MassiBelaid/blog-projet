@@ -2,9 +2,10 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Service\GetFromApiService;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class BlogController extends AbstractController
 {
@@ -12,9 +13,12 @@ class BlogController extends AbstractController
     /**
      * @Route("/", name="index")
      */
-    public function index(): Response
+    public function index(GetFromApiService $serviceGet): Response
     {
-        return $this->render('blog/index.html.twig');
+        $characters = $serviceGet->getCharacters();
+        return $this->render('blog/index.html.twig',[
+            'characters' => $characters
+        ]);
     }
 
 
