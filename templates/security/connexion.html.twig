@@ -1,20 +1,30 @@
 {% extends 'base.html.twig' %}
+
 {% block body %}
-
-    <h1>Connexion</h1>
-
-    <form action="{{ path('connexion') }}" method="post">
-        <div class="form-group">
-            <input placeholder="Adresse email" type="text" class="form-control" name="_username" required>
+    {% if app.user %}
+        <div class="alert alert-dismissible alert-warning">
+            <h4 class="alert-heading">Vous êtes déja connecté!</h4>
+            <p class="mb-0"><a href="{{path("home")}}" class="alert-link">Aller à l'acceuil</a>.</p>
         </div>
+    {% else %}
 
-        <div class="form-group">
-            <input placeholder="mot de passe" type="password" class="form-control" name="_password" required>
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-success"> Se connecter </button>
-        </div>
-    </form>
+        <h1>Connexion</h1>
+
+        {{ error }}
+
+        <form action="{{ path('connexion') }}" method="post">
+            <div class="form-group">
+                <input placeholder="Adresse email" type="text" class="form-control" name="_username" required>
+            </div>
+
+            <div class="form-group">
+                <input placeholder="mot de passe" type="password" class="form-control" name="_password" required>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success"> Se connecter </button>
+            </div>
+        </form>
+    {% endif %}
 
 
 {% endblock %}

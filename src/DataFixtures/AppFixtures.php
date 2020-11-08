@@ -21,6 +21,14 @@ class AppFixtures extends Fixture
 
         $statusCode = $response->getStatusCode();
 
+
+        $admin = new User();
+        $user->setEmail("admin@blog.fr")
+            ->setUsername("admin")
+            ->setPassword("admin")
+            ->setRoles(['ROLE_ADMIN']);
+        $manager->persist($admin);
+
         if (200 !== $statusCode) {
             $retour = "erreur ".$statusCode;
         } else {
