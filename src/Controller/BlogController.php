@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\Entity\Comment;
 use App\Entity\Character;
 use App\Form\CommentType;
+use App\Form\CharacterType;
 use App\Repository\CharacterRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -13,6 +14,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+
+
 
 class BlogController extends AbstractController
 {
@@ -75,13 +79,38 @@ class BlogController extends AbstractController
     }
 
 
-    /**
-     * @Route("/post/{id}", name="details")
+
+
+
+      /**
+     * @Route("/character/new", name="character_create")
+     * @Route("/character/{id}/edit", name="character_edit")
      */
-    public function details(int $id): Response
+    public function editCharacter(Character $character = null, Request $request, EntityManagerInterface $manager): Response
     {
-        return $this->render('blog/details.html.twig',[
-            'id' => $id
+        if(!$character){
+            $character = new Character();
+        }
+
+
+
+            $form = $this->createForm(CharacterType::class, $character);
+
+            $form->handleRequest($request);
+
+            if($form->isSubmitted() && $form->isValid()){
+
+                $manager->persist($character);
+                $manager->flush();
+
+                return $this->redirectToRoute('character_show', [
+                    'id' => $character->getId() 
+                ]);
+            }
+
+        return $this->render('blog/edit.html.twig', [
+            'formCharacter' => $form->createView(),
+            'editMode' => $character->getId() !== null
         ]);
     }
 }

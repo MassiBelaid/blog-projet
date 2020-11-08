@@ -22,6 +22,11 @@
                     <img src="{{character.image}}" alt="{{character.name}}" width="250" height="250">
                 </div>
             </div>
+            {% if is_granted('ROLE_ADMIN') %}
+                <div class="col-6">
+                    <a href="{{ path('character_edit', {'id' : character.id}) }}" class="btn btn-info">Modifier Personnage.</a>
+                </div>
+            {% endif %}
         </div>
     </article>
 

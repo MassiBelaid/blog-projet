@@ -1,22 +1,30 @@
 {% extends 'base.html.twig' %}
-{% block body %}
-    <h1>Inscrivez vous</h1>
-    {{ form_start(registrationForm) }}
-    <div>
-        {{ form_row(registrationForm.email, {'label':'email ','attr':  {'placeholder':"votre email", 'class': 'form-control'}} )}}<br/>
-    </div>
-    <div>
-        {{ form_row(registrationForm.username, {'label':'pseudo','attr':  {'placeholder':"votre pseudo", 'class': 'form-control'}} )}}<br/>
-    </div>
-    <div>
-        {{ form_row(registrationForm.password, {'label':'mot de passe','attr':  {'placeholder':"**********", 'class': 'form-control'}} )}}<br/>
-    </div>
-    <div>
-        {{ form_row(registrationForm.confirm_password, {'label':'confirmation du mot de passe','attr':  {'placeholder':"**********", 'class': 'form-control'}} )}}<br/>
-    </div>
 
-    <button type="submit" class="btn btn-success">
-      S'inscrire      
-    </button>
-    {{ form_end(registrationForm) }}
+{% block body %}
+    {% if app.user %}
+    <div class="alert alert-dismissible alert-warning">
+        <h4 class="alert-heading">Action non possible quand vous êtes conncté</h4>
+        <p class="mb-0"><a href="{{path("home")}}" class="alert-link">Aller à l'acceuil</a>.</p>
+    </div>
+    {% else %}
+        <h1>Inscrivez vous</h1>
+        {{ form_start(registrationForm) }}
+        <div>
+            {{ form_row(registrationForm.email, {'label':'email ','attr':  {'placeholder':"votre email", 'class': 'form-control'}} )}}<br/>
+        </div>
+        <div>
+            {{ form_row(registrationForm.username, {'label':'pseudo','attr':  {'placeholder':"votre pseudo", 'class': 'form-control'}} )}}<br/>
+        </div>
+        <div>
+            {{ form_row(registrationForm.password, {'label':'mot de passe','attr':  {'placeholder':"**********", 'class': 'form-control'}} )}}<br/>
+        </div>
+        <div>
+            {{ form_row(registrationForm.confirm_password, {'label':'confirmation du mot de passe','attr':  {'placeholder':"**********", 'class': 'form-control'}} )}}<br/>
+        </div>
+
+        <button type="submit" class="btn btn-success">
+        S'inscrire      
+        </button>
+        {{ form_end(registrationForm) }}
+    {% endif %}
 {% endblock %}
