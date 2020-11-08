@@ -28,6 +28,11 @@
     <section class="comment">
         <h3>
             {{ character.comments | length }} commentaires 
+            {% if app.user %}
+                <a class="badge badge-info" href="#add-comment">Commenter</a>
+            {% else %}
+                <a class="badge badge-info" href="{{path("connexion")}}">Connectez-vous pour pouvoir commenter</a>
+            {% endif %}
         </h3>
         {% for comment in character.comments | sort((a, b) => b.createdAt <=> a.createdAt) %}
         <div class="card border-light mb-3" style="max-width: 100rem;">
@@ -42,9 +47,22 @@
                 </div>
             
         </div>
-    {% endfor %}
-
+        {% endfor %}
     </section>
+    {% if app.user %}
+        <section class="add-comment">
+            <h2 id="add-comment">Ajouter un commentaire</h2>
+            {{ form_start(formComment) }}
+            <div>
+                {{ form_row(formComment.content, {'label':'commentaire','attr':  {'placeholder':"votre commentaire ...", 'class': 'form-control'}} )}}<br/>
+            </div>
+            <button type="submit" class="btn btn-success">
+                Ajouter le commentaire      
+            </button>
+            {{ form_end(formComment) }}
+        </section>
+    {% endif %}
+   
 
 
 {% endblock body %}
