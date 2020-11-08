@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 
+use App\Entity\Comment;
 use App\Entity\Character;
+use App\Form\CommentType;
 use App\Repository\CharacterRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,10 +29,30 @@ class BlogController extends AbstractController
     /**
      * @Route("/show{id}", name="character_show")
      */
-    public function character_show(Character $character): Response
+    public function character_show(Character $character, Request $request, EntityManagerInterface $manager): Response
     {
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment);
+
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $comment->setCreatedAt(new \DateTime())
+                    ->setCharacterr($character)
+                    ->setUser($this->getUser());
+                    
+            $manager->persist($comment);
+            $manager->flush();
+
+            return $this->redirectToRoute('character_show',[
+                'id' => $character->getId()
+            ]);
+        }
+        
         return $this->render('blog/info.html.twig',[
-            'character' => $character
+            'character' => $character,
+            'formComment' => $form->createView()
         ]);
     }
 
