@@ -28,6 +28,11 @@ class Character
     /**
      * @ORM\Column(type="string", length=255)
      */
+    private $image;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
     private $status;
 
     /**
@@ -68,6 +73,19 @@ class Character
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
 
         return $this;
     }
