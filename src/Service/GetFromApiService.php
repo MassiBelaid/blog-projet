@@ -28,7 +28,7 @@ class GetFromApiService
 
             $results = $content['results'];
 
-            for($i = 0; $i < sizeof($results)-10; $i++)
+            for($i = 0; $i < sizeof($results); $i++)
             {
                 $character = new Character();
                 $characterString = $results[$i];
