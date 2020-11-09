@@ -13,6 +13,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
@@ -85,6 +86,7 @@ class BlogController extends AbstractController
       /**
      * @Route("/character/new", name="character_create")
      * @Route("/character/{id}/edit", name="character_edit")
+     * @IsGranted("ROLE_ADMIN")
      */
     public function editCharacter(Character $character = null, Request $request, EntityManagerInterface $manager): Response
     {
