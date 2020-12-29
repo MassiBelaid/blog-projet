@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% if character.status == "Alive" %}
+    <article class="card text-white bg-success mb-3" style="max-width: 100rem;">
+    {% elseif character.status == "Dead" %}
+    <article class="card text-white bg-danger mb-3" style="max-width: 100rem;">
+    {% else %}
+    <article class="card text-white bg-secondary mb-3" style="max-width: 100rem;">
+    {% endif %}
+        <div class="card-header"><h1>{{ character.name }}</h1></div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-8">
+                    <h2>Status : {{ character.status }}.</h2>
+                    <h2>Race : {{ character.race }}.</h2>
+                    <h2>Location : {{ character.location }}.</h2>
+                    <h2>Vu pour la première fois dans : {{ character.fisrtSeen }}.</h2>
+                </div>
+                <div class="col-4">
+                    <img src="{{character.image}}" alt="{{character.name}}" width="250" height="250">
+                </div>
+            </div>
+            {% if is_granted('ROLE_ADMIN') %}
+                <div class="col-6">
+                    <a href="{{ path('character_edit', {'id' : character.id}) }}" class="btn btn-info">Modifier Personnage.</a>
+                </div>
+            {% endif %}
+        </div>
+    </article>
+
+    <section class="comment">
+        <h3>
+            {{ character.comments | length }} commentaires 
+            {% if app.user %}
+                <a class="badge badge-info" href="#add-comment">Commenter</a>
+            {% else %}
+                <a class="badge badge-info" href="{{path("connexion")}}">Connectez-vous pour pouvoir commenter</a>
+            {% endif %}
+        </h3>
+        {% for comment in character.comments | sort((a, b) => b.createdAt <=> a.createdAt) %}
+        <div class="card border-light mb-3" style="max-width: 100rem;">
+            
+                <div class="card-header">
+                    {{ comment.user.username}} (<smal> Le {{ comment.createdAt | date('d/m/Y à H:i') }}</smal>)
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        {{ comment.content | raw }}
+                    </p>
+                </div>
+            
+        </div>
+        {% endfor %}
+    </section>
+    {% if app.user %}
+        <section class="add-comment">
+            <h2 id="add-comment">Ajouter un commentaire</h2>
+            {{ form_start(formComment) }}
+            <div>
+                {{ form_row(formComment.content, {'label':'commentaire','attr':  {'placeholder':"votre commentaire ...", 'class': 'form-control'}} )}}<br/>
+            </div>
+            <button type="submit" class="btn btn-success">
+                Ajouter le commentaire      
+            </button>
+            {{ form_end(formComment) }}
+        </section>
+    {% endif %}
+   
+
+
+{% endblock body %}

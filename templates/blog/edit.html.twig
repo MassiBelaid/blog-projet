@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Création d'un article</h1>
+
+    
+    {{ form_start(formCharacter) }}
+    {% if not formCharacter.vars.valid %}
+            {% for children in formCharacter.children %}
+            {% if not children.vars.valid %}
+
+                <ul>
+                    {% for error in children.vars.errors %}
+                        <div class="badge badge-danger">
+                            <li>{{ error.message }}</li>
+                        </div>
+                    {% endfor %}
+                </ul>
+
+            {% endif %}
+        {% endfor %}
+        
+    {% endif %}
+
+
+    <div>
+        {{ form_row(formCharacter.name, {'label':'nom','attr':  {'placeholder':"nom du personnage", 'class': 'form-control'}} )}}<br/>
+    </div>
+    <div>
+        {{ form_row(formCharacter.image, {'label':'image ', 'attr' : {'placeholder':"lien ver image personnage",'class' : "form-control"}}) }} <br/>
+    </div>
+    <div>
+        {{ form_row(formCharacter.status, {'label':'status','attr':  { 'class': 'form-control'}} )}}<br/>
+    </div>
+    <div>
+        {{ form_row(formCharacter.race, {'label':"race",'attr':  {'placeholder':"race du personnage", 'class': 'form-control'}} )}}<br/>
+    </div>  
+    <div>
+        {{ form_row(formCharacter.location, {'label':"position",'attr':  {'placeholder':"il habite ou ?", 'class': 'form-control'}} )}}<br/>
+    </div>
+    <div>
+        {{ form_row(formCharacter.fisrtSeen, {'label':"première apparition",'attr':  {'placeholder':"quel épisode ?", 'class': 'form-control'}} )}}<br/>
+    </div>  
+
+    
+    <button type="submit" class="btn btn-success">
+        {% if editMode %}
+            Modifier le personnage
+        {% else %}
+            Ajouter le personnage
+        {% endif %}
+            
+    </button>
+
+    {{ form_end(formCharacter) }}
+
+{% endblock %}

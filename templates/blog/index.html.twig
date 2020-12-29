@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="jumbotron">
+        <h1 class="display-3">Mini application web réalisée avec le framework Symfony</h1>
+        <h2>Fonctionnalitées par utilisateur</h2>
+        <h3>anonyme :</h3>
+        <ul>
+            <li>créer un compte ou se connecter</li>
+            <li>voir la liste de personnages</li>
+            <li>voir détail sur un personnages</li>
+            <li>voir commentaire sur personnage</li>
+        </ul>
+        <h3>utilisateur connecté :</h3>
+        <ul>
+            <li>en plus d'un utilisateur anonyme, il peut : </li>
+            <li>ajouter des commentaires sur un personnage</li>
+        </ul>
+        <h3>Admin :</h3>
+        <ul>
+            <li>en plus de ce qu'un utlisateur connecté, il peut : </li>
+            <li>modifier les personnages</li>
+            <li>ajouter personnage</li>
+        </ul>
+        <p>
+            ajout d'un api REST avec un méthod GET qui permet de récupérer tout les personnage à l'adresse : 
+            api/characters
+        </p>
+        <p>
+            les personnages sont récupérés à partire d’une api open source 
+            <a href="https://rickandmortyapi.com/" target="blank">The ricky and morty API</a>
+            Les personnages sont affiché avec pagination
+        </p>
+        <p>
+            La fixture AppFixtures permet de récupérer les personnages du web service et de les insérer dans la base de données, 
+            elle ajoute aussi des commentaires avec des utilisateurs générés avec la bibliothéque 
+            <a href="https://github.com/fzaninotto/Faker  " target="blank">Faker</a>
+        </p>
+        <p>
+            Thème Bootstrap utilisé : <a href="https://bootswatch.com/superhero/" target="blank"> ici</a>
+        </p>
+    </div>
+
+
+{% endblock %}
