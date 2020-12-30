@@ -32,7 +32,7 @@ class BlogController extends AbstractController
 
 
     /**
-     * @Route("/show{id}", name="character_show")
+     * @Route("/show/{id}", name="character_show")
      */
     public function character_show(Character $character, Request $request, EntityManagerInterface $manager): Response
     {
@@ -77,6 +77,22 @@ class BlogController extends AbstractController
         return $this->render('blog/home.html.twig',[
             'characters' => $characters
         ]);
+    }
+
+
+    /**
+     * @Route("/delete/{id}", name="character_delete")
+     */
+    public function character_delete(Character $character, CharacterRepository $repository, EntityManagerInterface $manager)
+    {
+        /*$repository->remove($character);
+        $repository->flush();*/
+
+        $manager->remove($character);
+        $manager->flush();
+
+
+        return $this->redirectToRoute('home');
     }
 
 

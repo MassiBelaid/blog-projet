@@ -26,7 +26,12 @@
                             </div>
                             {% if is_granted('ROLE_ADMIN') %}
                                 <div class="col-6">
-                                    <a href="{{ path('character_edit', {'id' : character.id}) }}" class="btn btn-info">Modifier Personnage.</a>
+                                    <a href="{{ path('character_edit', {'id' : character.id}) }}" class="btn btn-info">Modifier Personnage</a>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                        <a href="{{ path('character_delete', {'id' : character.id}) }}" class="btn btn-danger">Supprimer Personnage</a>
+                                    </div>
                                 </div>
                             {% endif %}
                         </div>
