@@ -1,34 +1,35 @@
 Etudiant : Massinissa Mohamed BELAID
 Compte admin : admin@blog.fr mdp: admin
 
+lien Mon api Rest : https://massi-m2-blog.herokuapp.com/api/characters
 
 
-       Mini application web réalisée avec le framework Symfony
-        Fonctionnalitées par utilisateur
-        anonyme :
-    		créer un compte ou se connecter
-            	voir la liste de personnages
-            	voir détail sur un personnages
-            	voir commentaire sur personnage
+Fonctionnalitées par utilisateur
+anonyme :
 
-        utilisateur connecté :
-        
-            ajouter des commentaires sur un personnage
-        
-        
-            modifier les personnages
-            ajouter personnage
-        
-        
-            les personnages sont récupérés à partire d’une api open source :
-            The ricky and morty API : https://rickandmortyapi.com/
-        
-        
-            La fixture AppFixtures permet de récupérer les personnages du web service et de les insérer dans la base de données, 
-            elle ajoute aussi des commentaires avec des utilisateurs générés avec la bibliothéque 
-            Faker, elle crée aussi un admin avec les infos : email : admin@blog.fr, mot de passe : admin.
-        
-        
-            Thème Bootstrap utilisé : "https://bootswatch.com/superhero/" 
+    créer un compte et se connecter
+    voir la liste de personnages
+    voir détails sur un personnage
+    voir commentaires laissés pour un personnage
+
+utilisateur connecté :
+
+    en plus de celles de l'utilisateur anonyme, il peut :
+    ajouter des commentaires sur un personnage
+
+Admin :
+
+    en plus de celles d'utlisateur connecté, il peut :
+    modifier les personnages
+    ajouter personnage
+    login pour admin : admin@blog.fr | mdp : admin
+
+ajout d'un api REST avec un méthod GET qui permet de récupérer tout les personnages à l'adresse : api/characters ou api/characters/{id}
+
+les personnages sont récupérés à partire d’une api open source The ricky and morty API Les personnages sont affiché avec pagination
+
+La fixture AppFixtures permet de récupérer les personnages du web service et de les insérer dans la base de données, elle ajoute aussi des commentaires avec des utilisateurs générés avec la bibliothéque Faker
+
+Thème Bootstrap utilisé :
         
     
